@@ -1,0 +1,8 @@
+/.vs
+/x64
+/build
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.exe
