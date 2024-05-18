@@ -2,9 +2,9 @@
 // #pragma once
 
 /*
-	Заголовочный файл для класса ComputerClub, в котором добавляются
-		все необходимые зависимости и определяются названия и тип используемых
-		структур и методов/функций
+	Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РґР»СЏ РєР»Р°СЃСЃР° ComputerClub, РІ РєРѕС‚РѕСЂРѕРј РґРѕР±Р°РІР»СЏСЋС‚СЃСЏ
+		РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё Рё РѕРїСЂРµРґРµР»СЏСЋС‚СЃСЏ РЅР°Р·РІР°РЅРёСЏ Рё С‚РёРї РёСЃРїРѕР»СЊР·СѓРµРјС‹С…
+		СЃС‚СЂСѓРєС‚СѓСЂ Рё РјРµС‚РѕРґРѕРІ/С„СѓРЅРєС†РёР№
 */
 
 #ifndef COMPUTER_CLUB_H
@@ -25,56 +25,56 @@ class ComputerClub {
 	
 private:
 
-	// Структура - общая информация о компьютерном клубе
+	// РЎС‚СЂСѓРєС‚СѓСЂР° - РѕР±С‰Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєРѕРјРїСЊСЋС‚РµСЂРЅРѕРј РєР»СѓР±Рµ
 	struct computerClubInfo {
-		unsigned short tableNumber  = 0;   // Количество компьютерных столов
-		unsigned short timeStart = 1440;   // Начало работы клуба
-		unsigned short timeEnd   = 1440;   // Завершение работы клуба
-		unsigned short costOfHour   = 0;   // Стоимость одного часа
-		bool flagCorrectWork     = true;   // Флаг, показывающий корректность входного файла
+		unsigned short tableNumber  = 0;   // РљРѕР»РёС‡РµСЃС‚РІРѕ РєРѕРјРїСЊСЋС‚РµСЂРЅС‹С… СЃС‚РѕР»РѕРІ
+		unsigned short timeStart = 1440;   // РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹ РєР»СѓР±Р°
+		unsigned short timeEnd   = 1440;   // Р—Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹ РєР»СѓР±Р°
+		unsigned short costOfHour   = 0;   // РЎС‚РѕРёРјРѕСЃС‚СЊ РѕРґРЅРѕРіРѕ С‡Р°СЃР°
+		bool flagCorrectWork     = true;   // Р¤Р»Р°Рі, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
 	};
 
-	// Структура - информация о каждом событии (входящим и исходящем)
+	// РЎС‚СЂСѓРєС‚СѓСЂР° - РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєР°Р¶РґРѕРј СЃРѕР±С‹С‚РёРё (РІС…РѕРґСЏС‰РёРј Рё РёСЃС…РѕРґСЏС‰РµРј)
 	struct computerClubEvent {
-		unsigned short time    = 1440;     // Время события
-		unsigned short ID         = 0;     // ID события
-		unsigned short tableIndex = 0;     // Номер стола для событий с ID == 2 и ID == 12
-		string personName      = "\0";     // Имя клиента
+		unsigned short time    = 1440;     // Р’СЂРµРјСЏ СЃРѕР±С‹С‚РёСЏ
+		unsigned short ID         = 0;     // ID СЃРѕР±С‹С‚РёСЏ
+		unsigned short tableIndex = 0;     // РќРѕРјРµСЂ СЃС‚РѕР»Р° РґР»СЏ СЃРѕР±С‹С‚РёР№ СЃ ID == 2 Рё ID == 12
+		string personName      = "\0";     // РРјСЏ РєР»РёРµРЅС‚Р°
 	};
 
-	// Преобразование строки формата XX:XX в количество минут и проверка результата на корректность
+	// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё С„РѕСЂРјР°С‚Р° XX:XX РІ РєРѕР»РёС‡РµСЃС‚РІРѕ РјРёРЅСѓС‚ Рё РїСЂРѕРІРµСЂРєР° СЂРµР·СѓР»СЊС‚Р°С‚Р° РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ
 	static unsigned short checkTime(const string &eventTime, computerClubInfo &computerClubInfo, 
 									const bool flagEndl, bool flagPrint);
 
-	// Преобразование количества минут в строку формата XX:XX
+	// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° РјРёРЅСѓС‚ РІ СЃС‚СЂРѕРєСѓ С„РѕСЂРјР°С‚Р° XX:XX
 	static string timeToString(unsigned short time);
 
-	// Получение всей информации из входного файла
+	// РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµР№ РёРЅС„РѕСЂРјР°С†РёРё РёР· РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
 	static vector<computerClubEvent> openFile(const string &fname, computerClubInfo &computerClubInfo);
 
-	// Вычисление выручки (с округлением до часа в большую сторону) для одного стола
+	// Р’С‹С‡РёСЃР»РµРЅРёРµ РІС‹СЂСѓС‡РєРё (СЃ РѕРєСЂСѓРіР»РµРЅРёРµРј РґРѕ С‡Р°СЃР° РІ Р±РѕР»СЊС€СѓСЋ СЃС‚РѕСЂРѕРЅСѓ) РґР»СЏ РѕРґРЅРѕРіРѕ СЃС‚РѕР»Р°
 	static pair<unsigned int, unsigned short>
 		calculateCostOfTable(unsigned short timeEnd, unsigned short timeStart, unsigned short costOfHour);
 
-	// Вывод в консоль (выходной файл) информации по конкретному событию
+	// Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ (РІС‹С…РѕРґРЅРѕР№ С„Р°Р№Р») РёРЅС„РѕСЂРјР°С†РёРё РїРѕ РєРѕРЅРєСЂРµС‚РЅРѕРјСѓ СЃРѕР±С‹С‚РёСЋ
 	static void printEvent(computerClubEvent &compEvent, unsigned short newEventID, unsigned short errorIndex);
 	
-	// Вывод в консоль (выходной файл) информации и подсчёт выручки для последних клиентов,
-	//	которые ушли перед закрытием компьютерного клуба 
+	// Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ (РІС‹С…РѕРґРЅРѕР№ С„Р°Р№Р») РёРЅС„РѕСЂРјР°С†РёРё Рё РїРѕРґСЃС‡С‘С‚ РІС‹СЂСѓС‡РєРё РґР»СЏ РїРѕСЃР»РµРґРЅРёС… РєР»РёРµРЅС‚РѕРІ,
+	//	РєРѕС‚РѕСЂС‹Рµ СѓС€Р»Рё РїРµСЂРµРґ Р·Р°РєСЂС‹С‚РёРµРј РєРѕРјРїСЊСЋС‚РµСЂРЅРѕРіРѕ РєР»СѓР±Р° 
 	static void checkLastClients(computerClubInfo &compClubInfo,
 								 map<string, pair<unsigned short, unsigned short>> &clientToTableMap,
 								 vector<pair <unsigned int, unsigned short>> &tablesInfo);
 
-	// Последовательная обработка всех входящих событий
+	// РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° РІСЃРµС… РІС…РѕРґСЏС‰РёС… СЃРѕР±С‹С‚РёР№
 	static vector<pair<unsigned int, unsigned short>>
 		eventProcessing(computerClubInfo &compClubInfo, vector<computerClubEvent> &compClubEventIn);
 
-	// Вывод в консоль (выходной файл) информации (выручка и время работы) по всем столам компьютерного клуба
+	// Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ (РІС‹С…РѕРґРЅРѕР№ С„Р°Р№Р») РёРЅС„РѕСЂРјР°С†РёРё (РІС‹СЂСѓС‡РєР° Рё РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹) РїРѕ РІСЃРµРј СЃС‚РѕР»Р°Рј РєРѕРјРїСЊСЋС‚РµСЂРЅРѕРіРѕ РєР»СѓР±Р°
 	static void printTablesInfo(vector<pair<unsigned int, unsigned short>> &tablesInfo);
 
 public:
 
-	// Главный файл класса ComputerClub
+	// Р“Р»Р°РІРЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° ComputerClub
 	static void computerClubMain(const string &fname);
 
 };
