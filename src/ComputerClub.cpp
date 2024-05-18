@@ -6,12 +6,12 @@
 #include "../include/ComputerClub.h"
 
 // Преобразование строки формата XX:XX в количество минут и проверка результата на корректность
-unsigned short ComputerClub::checkTime(const string &eventTime, computerClubInfo &computerClubInfo,
+unsigned short ComputerClub::checkTime(const string &eventTime, computerClubInfo &compClubInfo,
                                        bool flagEndl, bool flagPrint) {
 
     // Если формат строки с временем не корректен
     if (eventTime.length() != 5) {
-        computerClubInfo.flagCorrectWork = false;
+        compClubInfo.flagCorrectWork = false;
         return 1440;
     }
 
@@ -23,14 +23,15 @@ unsigned short ComputerClub::checkTime(const string &eventTime, computerClubInfo
     unsigned short timeTemp = eventTimePair.first * 60 + eventTimePair.second; 
 
     // Проверка формата времени на корректность
-    if (flagPrint && (!computerClubInfo.flagCorrectWork || timeTemp >= 1440 || eventTime[2] != ':')) {
-        cout << eventTime;
-        if (flagEndl)
-            cout << endl;
-        else
-            cout << " ";
-
-        computerClubInfo.flagCorrectWork = false;
+    if (!compClubInfo.flagCorrectWork || timeTemp >= 1440 || eventTime[2] != ':') {
+        if (flagPrint) {
+            cout << eventTime;
+            if (flagEndl)
+                cout << endl;
+            else
+                cout << " ";
+        }
+        compClubInfo.flagCorrectWork = false;
         return 0;
     }
     return timeTemp;
@@ -136,7 +137,7 @@ ComputerClub::calculateCostOfTable(unsigned short timeEnd, unsigned short timeSt
         diffClientTime += 1440;                   //    может возникнуть отрицательная разница во времени
 
     unsigned short hourShort = diffClientTime / 60;
-    if (hourShort % 60 != 0)                      // Округление до часа в большую сторону
+    if (diffClientTime % 60 > 0)                  // Округление до часа в большую сторону
         hourShort++;
 
     return { hourShort * costOfHour, diffClientTime };
