@@ -40,7 +40,7 @@ vector<ComputerClub::computerClubEvent>
 ComputerClub::openFile(const string &fname, computerClubInfo &compClubInfo) {
 
     // Вектор входящих событий
-	vector<computerClubEvent> eventIn;
+    vector<computerClubEvent> eventIn;
  
     ifstream inputFile(fname);
 
@@ -52,10 +52,10 @@ ComputerClub::openFile(const string &fname, computerClubInfo &compClubInfo) {
         return eventIn;
     }
 	
-	// Строка для записи времени
+    // Строка для записи времени
     string eventTime;
 
-	// Запись входящего события	
+    // Запись входящего события	
     computerClubEvent tempEvent;          
 
     inputFile >> compClubInfo.tableNumber;
@@ -128,14 +128,14 @@ ComputerClub::calculateCostOfTable(unsigned short timeEnd, unsigned short timeSt
 
     short diffClientTime = timeEnd - timeStart;
 	
-	// Если компьютерный клуб работает в ночное время или круглосуточно
-	// 	может возникнуть отрицательная разница во времени
+    // Если компьютерный клуб работает в ночное время или круглосуточно
+    // 	может возникнуть отрицательная разница во времени
     if (diffClientTime < 0)                       
         diffClientTime += 1440;   
 
     unsigned short hourShort = diffClientTime / 60;
 	
-	// Округление до часа в большую сторону
+    // Округление до часа в большую сторону
     if (diffClientTime % 60 > 0)                  
         hourShort++;
 
@@ -146,10 +146,10 @@ ComputerClub::calculateCostOfTable(unsigned short timeEnd, unsigned short timeSt
 void ComputerClub::printEvent(computerClubEvent &compEvent, unsigned short newEventID,
                               const string &errorMessage) {
 		
-	// Часто входящие и исходящие события различаются только ID
+    // Часто входящие и исходящие события различаются только ID
     compEvent.ID = newEventID;
 	
-	// Если событие с ID == 13 -> вывод названия ошибки
+    // Если событие с ID == 13 -> вывод названия ошибки
     if (compEvent.ID == 13)
         compEvent.personName = errorMessage;
 
@@ -171,8 +171,8 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
     // Информация о столе и времени клиента
     pair<unsigned short, unsigned short> clientInfo;
 	
-	// Информация о событии
-	computerClubEvent currentClubEvent;
+    // Информация о событии
+    computerClubEvent currentClubEvent;
 	
     // Последовательная обработка всех последних клиентов
     //  (ключи в словаре уже упорядочены по возрастанию - имена клиентов в алфавитном порядке)
@@ -238,10 +238,10 @@ ComputerClub::eventProcessing(const computerClubInfo &compClubInfo,
         switch (currentClubEvent.ID) {
             case 1:
                 if (currentClubEvent.time < compClubInfo.timeStart || currentClubEvent.time > compClubInfo.timeEnd + flag)
-					// Ошибка "NotOpenYet"
+                    // Ошибка "NotOpenYet"
                     printEvent(currentClubEvent, 13, errorMessage.at(NotOpenYet));
                 else if (clientToTableMap.find(currentClubEvent.personName) != clientToTableMap.end())
-					// Ошибка "YouShallNotPass"
+                    // Ошибка "YouShallNotPass"
                     printEvent(currentClubEvent, 13, errorMessage.at(YouShallNotPass));
                 else
                     // Клиент зашёл внутрь компьютерного клуба, но ещё не сел за стол
@@ -251,10 +251,10 @@ ComputerClub::eventProcessing(const computerClubInfo &compClubInfo,
 
             case 2:
                 if (clientToTableMap.find(currentClubEvent.personName) == clientToTableMap.end())
-					// Ошибка "ClientUnknown"
+                    // Ошибка "ClientUnknown"
                     printEvent(currentClubEvent, 13, errorMessage.at(ClientUnknown));
                 else if (occupiedTables[currentClubEvent.tableIndex])
-					// Ошибка "PlaceIsBusy"
+                    // Ошибка "PlaceIsBusy"
                     printEvent(currentClubEvent, 13, errorMessage.at(PlaceIsBusy));
                 else {
                     // Получение информации о предыдущем компьютерном столе клиента
@@ -288,7 +288,7 @@ ComputerClub::eventProcessing(const computerClubInfo &compClubInfo,
 
             case 3:
                 if (occupiedTablesCount < compClubInfo.tableNumber)
-					// Ошибка "ICanWaitNoLonger!"
+                    // Ошибка "ICanWaitNoLonger!"
                     printEvent(currentClubEvent, 13, errorMessage.at(ICanWaitNoLonger));
                 else if (clientToTableMap.find(currentClubEvent.personName) == clientToTableMap.end())
                     // Ошибка "ClientUnknown" (отсутствует в условии задания, но требуется для корректной работы программы)
