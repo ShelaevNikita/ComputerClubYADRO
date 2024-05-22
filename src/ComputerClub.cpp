@@ -170,7 +170,10 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
 
     // Информация о столе и времени клиента
     pair<unsigned short, unsigned short> clientInfo;
-
+	
+	// Информация о событии
+	computerClubEvent currentClubEvent;
+	
     // Последовательная обработка всех последних клиентов
     //  (ключи в словаре уже упорядочены по возрастанию - имена клиентов в алфавитном порядке)
     for (const auto &lastClient : clientToTableMap) {
@@ -178,19 +181,18 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
         clientInfo = lastClient.second;
 
         // Если клиент не сидел за столом, он просто уходит
-        if (clientInfo.first == 0)
-            continue;
+        if (clientInfo.first > 0) {
 
-        // Вычисление выручки и времени занимания клиентом стола
-        pair<unsigned short, unsigned int> diffClientTimeCost = 
+			// Вычисление выручки и времени занимания клиентом стола
+			pair<unsigned short, unsigned int> diffClientTimeCost = 
             calculateCostOfTable(compClubInfo.timeEnd, clientInfo.second, compClubInfo.costOfHour);
 
-        // Обновление информации для занимаемого стола
-        tablesInfo[clientInfo.first].first  += diffClientTimeCost.first;
-        tablesInfo[clientInfo.first].second += diffClientTimeCost.second;
-
+			// Обновление информации для занимаемого стола
+			tablesInfo[clientInfo.first].first  += diffClientTimeCost.first;
+			tablesInfo[clientInfo.first].second += diffClientTimeCost.second;
+		}
+		
         // Вывод в консоль (выходной файл) события с ID == 11 и временем закрытия компьютерного клуба
-        computerClubEvent currentClubEvent;
         currentClubEvent.time       = compClubInfo.timeEnd;
         currentClubEvent.personName = lastClient.first;
         printEvent(currentClubEvent, 11, "\0");
