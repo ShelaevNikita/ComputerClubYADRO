@@ -14,7 +14,7 @@ unsigned short ComputerClub::checkTime(const string &eventTime, computerClubInfo
 
     // Проверка строки с временем и самого времени на корректность
     if (!compClubInfo.flagCorrectWork || timeTemp >= 1440 || 
-            eventTime.length() != 5 || eventTime[2] != ':') {
+        eventTime.length() != 5 || eventTime[2] != ':') {
         if (flagPrint) {
             cout << eventTime;
             if (flagEndl)
@@ -183,14 +183,14 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
         // Если клиент не сидел за столом, он просто уходит
         if (clientInfo.first > 0) {
 
-			// Вычисление выручки и времени занимания клиентом стола
-			pair<unsigned short, unsigned int> diffClientTimeCost = 
-            calculateCostOfTable(compClubInfo.timeEnd, clientInfo.second, compClubInfo.costOfHour);
+            // Вычисление выручки и времени занимания клиентом стола
+            pair<unsigned short, unsigned int> diffClientTimeCost = 
+                calculateCostOfTable(compClubInfo.timeEnd, clientInfo.second, compClubInfo.costOfHour);
 
-			// Обновление информации для занимаемого стола
-			tablesInfo[clientInfo.first].first  += diffClientTimeCost.first;
-			tablesInfo[clientInfo.first].second += diffClientTimeCost.second;
-		}
+            // Обновление информации для занимаемого стола
+            tablesInfo[clientInfo.first].first  += diffClientTimeCost.first;
+            tablesInfo[clientInfo.first].second += diffClientTimeCost.second;
+        }
 		
         // Вывод в консоль (выходной файл) события с ID == 11 и временем закрытия компьютерного клуба
         currentClubEvent.time       = compClubInfo.timeEnd;
@@ -306,7 +306,7 @@ ComputerClub::eventProcessing(const computerClubInfo &compClubInfo,
 
             case 4:
                 if (clientToTableMap.find(currentClubEvent.personName) == clientToTableMap.end())
-					// Ошибка "ClientUnknown"
+                    // Ошибка "ClientUnknown"
                     printEvent(currentClubEvent, 13, errorMessage.at(ClientUnknown));
                 else {
                     // Получение информации о компьютерном столе уходящего клиента
