@@ -173,6 +173,7 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
 	
     // Информация о событии
     computerClubEvent currentClubEvent;
+    currentClubEvent.time = compClubInfo.timeEnd;
 	
     // Последовательная обработка всех последних клиентов
     //  (ключи в словаре уже упорядочены по возрастанию - имена клиентов в алфавитном порядке)
@@ -193,7 +194,6 @@ void ComputerClub::checkLastClients(const computerClubInfo &compClubInfo,
         }
 		
         // Вывод в консоль (выходной файл) события с ID == 11 и временем закрытия компьютерного клуба
-        currentClubEvent.time       = compClubInfo.timeEnd;
         currentClubEvent.personName = lastClient.first;
         printEvent(currentClubEvent, 11, "\0");
     }
