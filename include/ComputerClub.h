@@ -17,13 +17,15 @@
 #include <queue>
 #include <vector>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
-class ComputerClub {
+class ComputerClub final {
 	
 private:
+	
+	// Перечисление всех типов ошибок
+	enum errorType { YouShallNotPass, NotOpenYet, PlaceIsBusy, ClientUnknown, ICanWaitNoLonger };
 
 	// Структура - общая информация о компьютерном клубе
 	struct computerClubInfo {
@@ -57,20 +59,23 @@ private:
 		calculateCostOfTable(unsigned short timeEnd, unsigned short timeStart, unsigned short costOfHour);
 
 	// Вывод в консоль (выходной файл) информации по конкретному событию
-	static void printEvent(computerClubEvent &compEvent, unsigned short newEventID, unsigned short errorIndex);
+	static void printEvent(computerClubEvent &compEvent, unsigned short newEventID,
+						   const string &errorMessage);
 	
 	// Вывод в консоль (выходной файл) информации и подсчёт выручки для последних клиентов,
 	//	которые ушли перед закрытием компьютерного клуба 
-	static void checkLastClients(computerClubInfo &compClubInfo,
-								 map<string, pair<unsigned short, unsigned short>> &clientToTableMap,
+	static void checkLastClients(const computerClubInfo &compClubInfo,
+								 const map<string, pair<unsigned short, unsigned short>> &clientToTableMap,
 								 vector<pair <unsigned int, unsigned short>> &tablesInfo);
 
 	// Последовательная обработка всех входящих событий
 	static vector<pair<unsigned int, unsigned short>>
-		eventProcessing(computerClubInfo &compClubInfo, vector<computerClubEvent> &compClubEventIn);
+		eventProcessing(const computerClubInfo &compClubInfo,
+						vector<computerClubEvent> &compClubEventIn,
+						const map<errorType, string> &errorMessage);
 
 	// Вывод в консоль (выходной файл) информации (выручка и время работы) по всем столам компьютерного клуба
-	static void printTablesInfo(vector<pair<unsigned int, unsigned short>> &tablesInfo);
+	static void printTablesInfo(const vector<pair<unsigned int, unsigned short>> &tablesInfo);
 
 public:
 
