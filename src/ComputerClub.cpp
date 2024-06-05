@@ -32,7 +32,8 @@ unsigned short ComputerClub::checkTime(const string &eventTime, computerClubInfo
 string ComputerClub::timeToString(unsigned short time) {
     unsigned short timeHour = time / 60;
     unsigned short timeMin  = time % 60;
-    return to_string(timeHour / 10) + to_string(timeHour % 10) + ":" + to_string(timeMin / 10) + to_string(timeMin % 10);
+    return to_string(timeHour / 10) + to_string(timeHour % 10) + ":" + 
+		to_string(timeMin / 10) + to_string(timeMin % 10);
 }
 
 // Получение всей информации из входного файла 
@@ -132,12 +133,9 @@ ComputerClub::calculateCostOfTable(unsigned short timeEnd, unsigned short timeSt
     // 	может возникнуть отрицательная разница во времени
     if (diffClientTime < 0)                       
         diffClientTime += 1440;   
-
-    unsigned short hourShort = diffClientTime / 60;
 	
-    // Округление до часа в большую сторону
-    if (diffClientTime % 60 > 0)                  
-        hourShort++;
+	// Округление до часа в большую сторону
+    unsigned short hourShort = (diffClientTime + 59) / 60;
 
     return { hourShort * costOfHour, diffClientTime };
 }
@@ -261,7 +259,7 @@ ComputerClub::eventProcessing(const computerClubInfo &compClubInfo,
                     pair<unsigned short, unsigned short> prevClientTable = clientToTableMap[currentClubEvent.personName];
 
                     // Если он уже сидел за столом
-                    if (prevClientTable.first != 0) {
+                    if (prevClientTable.first > 0) {
 
                         // Освобождение предыдущего стола
                         occupiedTables[prevClientTable.first] = false;
